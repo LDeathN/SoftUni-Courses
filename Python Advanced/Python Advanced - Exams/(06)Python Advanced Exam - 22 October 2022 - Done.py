@@ -1,0 +1,154 @@
+# First Problem
+
+caffeine_mills = [int(x) for x in input().split(", ")]
+energy_drinks = [int(x) for x in input().split(", ")]
+caffeine_for_night = 0
+
+while caffeine_mills and energy_drinks:
+    milligrams = caffeine_mills.pop()
+    drink = energy_drinks.pop(0)
+    result = milligrams * drink
+    if result + caffeine_for_night <= 300:
+        caffeine_for_night += result
+    elif result + caffeine_for_night > 300:
+        energy_drinks.append(drink)
+        caffeine_for_night -= 30
+        if caffeine_for_night < 0:
+            caffeine_for_night = 0
+
+if energy_drinks:
+    print(f"Drinks left: {', '.join([str(x) for x in energy_drinks])}")
+else:
+    print("At least Stamat wasn't exceeding the maximum caffeine.")
+
+print(f"Stamat is going to sleep with {caffeine_for_night} mg caffeine.")
+
+
+
+# Second Problem
+
+rows = int(input())
+racing_number = input()
+matrix = [[x for x in input().split(" ")] for _ in range(rows)]
+position = (0, 0)
+kilometers = 0
+finish = False
+finish_line = None
+tunnels = []
+
+for i in range(rows):
+    for j in range(rows):
+        if matrix[i][j] == "T":
+            tunnels.append((i, j))
+        elif matrix[i][j] == "F":
+            finish_line = (i, j)
+
+while True:
+    x, y = position
+    command = input()
+    if command == "End":
+        break
+
+    elif command == "up":
+        if (x - 1, y) in tunnels:
+            tunnels.remove((x - 1, y))
+            matrix[x - 1][y] = "."
+            position = (tunnels[0])
+            tunnels.remove(tunnels[0])
+            matrix[position[0]][position[1]] = "."
+            kilometers += 30
+        elif (x - 1, y) == finish_line:
+            position = (x - 1, y)
+            kilometers += 10
+            matrix[x - 1][y] = "."
+            finish = True
+            break
+        else:
+            kilometers += 10
+            position = (x - 1, y)
+
+    elif command == "down":
+        if (x + 1, y) in tunnels:
+            tunnels.remove((x + 1, y))
+            matrix[x + 1][y] = "."
+            position = (tunnels[0])
+            tunnels.remove(tunnels[0])
+            matrix[position[0]][position[1]] = "."
+            kilometers += 30
+        elif (x + 1, y) == finish_line:
+            position = (x + 1, y)
+            kilometers += 10
+            matrix[x + 1][y] = "."
+            finish = True
+            break
+        else:
+            kilometers += 10
+            position = (x + 1, y)
+
+    elif command == "right":
+        if (x, y + 1) in tunnels:
+            tunnels.remove((x, y + 1))
+            matrix[x][y + 1] = "."
+            position = (tunnels[0])
+            tunnels.remove(tunnels[0])
+            matrix[position[0]][position[1]] = "."
+            kilometers += 30
+        elif (x, y + 1) == finish_line:
+            position = (x, y + 1)
+            kilometers += 10
+            matrix[x][y + 1] = "."
+            finish = True
+            break
+        else:
+            kilometers += 10
+            position = (x, y + 1)
+
+    elif command == "left":
+        if (x, y - 1) in tunnels:
+            tunnels.remove((x, y - 1))
+            matrix[x][y - 1] = "."
+            position = (tunnels[0])
+            tunnels.remove(tunnels[0])
+            matrix[position[0]][position[1]] = "."
+            kilometers += 30
+        elif (x, y - 1) == finish_line:
+            position = (x, y - 1)
+            kilometers += 10
+            matrix[x][y - 1] = "."
+            finish = True
+            break
+        else:
+            kilometers += 10
+            position = (x, y - 1)
+
+if finish:
+    print(f"Racing car {racing_number} finished the stage!")
+else:
+    print(f"Racing car {racing_number} DNF.")
+
+print(f"Distance covered {kilometers} km.")
+matrix[position[0]][position[1]] = "C"
+for line in matrix:
+    print("".join(line))
+
+
+
+# Third Problem
+
+def forecast(*args):
+    forecasted = {}
+    result = ""
+    for pair in args:
+        location, weather = pair[0], pair[1]
+        forecasted[location] = weather
+    forecasted = sorted(forecasted.items(), key=lambda x: x[0])
+    forecasted = dict(forecasted)
+    forecasted = sorted(forecasted.items(), key=lambda x: x[1] == "Rainy", reverse=True)
+    forecasted = dict(forecasted)
+    forecasted = sorted(forecasted.items(), key=lambda x: x[1] == "Cloudy", reverse=True)
+    forecasted = dict(forecasted)
+    forecasted = sorted(forecasted.items(), key=lambda x: x[1] == "Sunny", reverse=True)
+    forecasted = dict(forecasted)
+    for key, value in forecasted.items():
+        result += f"{key} - {value}, "
+    return "\n".join(result.split(", "))
