@@ -167,3 +167,33 @@ if command == "danger":
 
 for line in matrix:
     print("".join(line))
+
+
+
+# Third Problem
+
+def gather_credits(needed, *args):
+    credits_needed = needed
+    enrolled = []
+    gathered = 0
+    for pair in args:
+        course, credit = pair
+        if credits_needed > gathered:
+            if course not in enrolled:
+                enrolled.append(course)
+                gathered += credit
+            else:
+                continue
+        elif credits_needed <= gathered:
+            break
+
+    if gathered >= credits_needed:
+        result = []
+        result.append(f"Enrollment finished! Maximum credits: {gathered}.")
+        result.append("Courses: ")
+        result.append(", ".join(enrolled))
+        result = result[0] + "\n" + result[1] + ", ".join(sorted(result[2].split(", ")))
+    else:
+        result = f"You need to enroll in more courses! You have to gather {credits_needed - gathered} credits more."
+
+    return result
