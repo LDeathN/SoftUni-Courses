@@ -1,1 +1,36 @@
+# First Problem
 
+queue = [int(x) for x in input().split()]
+stack = [int(x) for x in input().split()]
+challenges = [int(x) for x in input().split()]
+while stack and queue:
+    tool = queue.pop(0)
+    substance = stack.pop()
+    result = tool * substance
+    if result in challenges:
+        challenges.remove(result)
+    else:
+        tool += 1
+        queue.append(tool)
+        substance -= 1
+        if substance == 0:
+            continue
+        stack.append(substance)
+    if not challenges:
+        print("Harry found an ostracon, which is dated to the 6th century BCE.")
+        break
+
+if challenges:
+    print("Harry is lost in the temple. Oblivion awaits him.")
+
+if queue:
+    print("Tools: ", end="")
+    print(", ".join([str(x) for x in queue]))
+
+if stack:
+    print("Substances: ", end="")
+    print(", ".join([str(x) for x in stack]))
+
+if challenges:
+    print("Challenges: ", end="")
+    print(", ".join([str(x) for x in challenges]))
