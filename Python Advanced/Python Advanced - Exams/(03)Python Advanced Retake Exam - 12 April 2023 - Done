@@ -1,1 +1,35 @@
+# First Problem
 
+queue = [int(x) for x in input().split()]
+stack = [int(x) for x in input().split()]
+ducks = {}
+while queue and stack:
+    time = queue.pop(0)
+    task = stack.pop()
+    result = time * task
+    if 0 <= result <= 60:
+        if "Darth Vader Ducky" not in ducks:
+            ducks["Darth Vader Ducky"] = 0
+        ducks["Darth Vader Ducky"] += 1
+    elif 61 <= result <= 120:
+        if "Thor Ducky" not in ducks:
+            ducks["Thor Ducky"] = 0
+        ducks["Thor Ducky"] += 1
+    elif 121 <= result <= 180:
+        if "Big Blue Rubber Ducky" not in ducks:
+            ducks["Big Blue Rubber Ducky"] = 0
+        ducks["Big Blue Rubber Ducky"] += 1
+    elif 181 <= result <= 240:
+        if "Small Yellow Rubber Ducky" not in ducks:
+            ducks["Small Yellow Rubber Ducky"] = 0
+        ducks["Small Yellow Rubber Ducky"] += 1
+    else:
+        task -= 2
+        queue.append(time)
+        stack.append(task)
+
+print("Congratulations, all tasks have been completed! Rubber ducks rewarded:")
+print(f"Darth Vader Ducky: {ducks['Darth Vader Ducky'] if 'Darth Vader Ducky' in ducks else 0}")
+print(f"Thor Ducky: {ducks['Thor Ducky'] if 'Thor Ducky' in ducks else 0}")
+print(f"Big Blue Rubber Ducky: {ducks['Big Blue Rubber Ducky'] if 'Big Blue Rubber Ducky' in ducks else 0}")
+print(f"Small Yellow Rubber Ducky: {ducks['Small Yellow Rubber Ducky'] if 'Small Yellow Rubber Ducky' in ducks else 0}")
