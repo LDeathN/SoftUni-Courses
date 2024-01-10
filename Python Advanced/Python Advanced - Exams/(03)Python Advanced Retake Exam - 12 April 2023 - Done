@@ -148,3 +148,27 @@ for command in commands:
 if flag:
     print("There are more hazelnuts to collect.")
 print(f"Hazelnuts collected: {collected}")
+
+
+
+# Third Problem
+
+def movie_organizer(*args):
+    movies = {}
+    result = []
+    for pair in args:
+        name, genre = pair
+        if genre not in movies:
+            movies[genre] = []
+        movies[genre].append(name)
+    movies = sorted(movies.items(), key=lambda x: x[0])
+    movies = dict(movies)
+    movies = sorted(movies.items(), key=lambda x: len(x[1]), reverse=True)
+    movies = dict(movies)
+    for key, values in movies.items():
+        result.append(f"{key} - {len(values)}")
+        for value in sorted(values):
+            result.append(f"* {value}")
+    return "\n".join(result)
+
+
