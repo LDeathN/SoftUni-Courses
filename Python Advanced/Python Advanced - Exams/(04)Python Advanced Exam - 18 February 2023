@@ -172,3 +172,23 @@ if flag:
     print(f"Touched opponents: {touched} Moves made: {moves}")
 
 
+
+# Third Problem
+
+def shop_from_grocery_list(budget, grocery_list, *args):
+    for pair in args:
+        product, price = pair
+        if budget - price >= 0 and product in grocery_list:
+            grocery_list.remove(product)
+            budget -= price
+        elif budget - price < 0:
+            break
+        elif product not in grocery_list:
+            continue
+    if not grocery_list:
+        result = f"Shopping is successful. Remaining budget: {budget:.2f}."
+    else:
+        result = f"You did not buy all the products. Missing products: {', '.join(grocery_list)}."
+    return result
+
+
