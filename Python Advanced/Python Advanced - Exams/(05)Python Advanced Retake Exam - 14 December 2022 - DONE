@@ -142,3 +142,33 @@ for line in matrix:
     print("".join(line))
 
 
+
+# Third Problem
+
+def students_credits(*args):
+    total = 0
+    credits_received = 0
+    courses = {}
+    result = ""
+
+    for line in args:
+        line = line.split("-")
+        course, credit, max_points, points_got = line[0], int(line[1]), int(line[2]), int(line[3])
+        if course not in courses:
+            percentage = points_got / max_points
+            credits_received = percentage * credit
+            courses[course] = credits_received
+            total += credits_received
+
+    if total >= 240:
+        result += f"Diyan gets a diploma with {total:.1f} credits., "
+    else:
+        result += f"Diyan needs {(240 - total):.1f} credits more for a diploma., "
+
+    courses = sorted(courses.items(), key=lambda x: x[1], reverse=True)
+    courses = dict(courses)
+    for course, credit in courses.items():
+        result += f"{course} - {credit:.1f}, "
+    return "\n".join(result.split(", "))
+
+
