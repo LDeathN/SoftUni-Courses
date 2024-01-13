@@ -133,3 +133,22 @@ for line in matrix:
 
 
 
+# Third Problem
+
+def forecast(*args):
+    forecasted = {}
+    result = ""
+    for pair in args:
+        location, weather = pair[0], pair[1]
+        forecasted[location] = weather
+    forecasted = sorted(forecasted.items(), key=lambda x: x[0])
+    forecasted = dict(forecasted)
+    forecasted = sorted(forecasted.items(), key=lambda x: x[1] == "Rainy", reverse=True)
+    forecasted = dict(forecasted)
+    forecasted = sorted(forecasted.items(), key=lambda x: x[1] == "Cloudy", reverse=True)
+    forecasted = dict(forecasted)
+    forecasted = sorted(forecasted.items(), key=lambda x: x[1] == "Sunny", reverse=True)
+    forecasted = dict(forecasted)
+    for key, value in forecasted.items():
+        result += f"{key} - {value}, "
+    return "\n".join(result.split(", "))
