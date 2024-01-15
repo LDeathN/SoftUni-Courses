@@ -32,4 +32,108 @@ print(f"Rotations count: {rotations}")
 
 
 
+# Second Problem
 
+matrix = [[x for x in input().split(" ")] for _ in range(6)]
+rows, cols = 6, 6
+position = input()
+position = [int(x) for x in position if x.isdigit()]
+
+while True:
+    x, y = position[0], position[1]
+    command = input()
+    if command == "Stop":
+        break
+    command = command.split(", ")
+    operation = command[0]
+
+    if operation == "Create":
+        direction, value = command[1], command[2]
+        if direction == "up":
+            position = (int(x) - 1, int(y))
+            if matrix[x - 1][y] == ".":
+                matrix[x - 1][y] = value
+
+        elif direction == "down":
+            position = (int(x) + 1, int(y))
+            if matrix[x + 1][y] == ".":
+                matrix[x + 1][y] = value
+
+        elif direction == "right":
+            position = (int(x), int(y) + 1)
+            if matrix[x][y + 1] == ".":
+                matrix[x][y + 1] = value
+
+        elif direction == "left":
+            position = (int(x), int(y) - 1)
+            if matrix[x][y - 1] == ".":
+                matrix[x][y - 1] = value
+
+    elif operation == "Update":
+        direction, value = command[1], command[2]
+        if direction == "up":
+            position = (int(x) - 1, int(y))
+            if matrix[x - 1][y] != ".":
+                matrix[x - 1][y] = value
+
+        elif direction == "down":
+            position = (int(x) + 1, int(y))
+            if matrix[x + 1][y] != ".":
+                matrix[x + 1][y] = value
+
+        elif direction == "right":
+            position = (int(x), int(y) + 1)
+            if matrix[x][y + 1] != ".":
+                matrix[x][y + 1] = value
+
+        elif direction == "left":
+            position = (int(x), int(y) - 1)
+            if matrix[x][y - 1] != ".":
+                matrix[x][y - 1] = value
+
+    elif operation == "Delete":
+        direction = command[1]
+        if direction == "up":
+            position = (int(x) - 1, int(y))
+            if matrix[x - 1][y] != ".":
+                matrix[x - 1][y] = "."
+
+        elif direction == "down":
+            position = (int(x) + 1, int(y))
+            if matrix[x + 1][y] != ".":
+                matrix[x + 1][y] = "."
+
+        elif direction == "right":
+            position = (int(x), int(y) + 1)
+            if matrix[x][y + 1] != ".":
+                matrix[x][y + 1] = "."
+
+        elif direction == "left":
+            position = (int(x), int(y) - 1)
+            if matrix[x][y - 1] != ".":
+                matrix[x][y - 1] = "."
+
+    elif operation == "Read":
+        direction = command[1]
+        if direction == "up":
+            position = (int(x) - 1, int(y))
+            if matrix[x - 1][y] != ".":
+                print(matrix[x - 1][y])
+
+        elif direction == "down":
+            position = (int(x) + 1, int(y))
+            if matrix[x + 1][y] != ".":
+                print(matrix[x + 1][y])
+
+        elif direction == "right":
+            position = (int(x), int(y) + 1)
+            if matrix[x][y + 1] != ".":
+                print(matrix[x][y + 1])
+
+        elif direction == "left":
+            position = (int(x), int(y) - 1)
+            if matrix[x][y - 1] != ".":
+                print(matrix[x][y - 1])
+
+for line in matrix:
+    print(" ".join(line))
