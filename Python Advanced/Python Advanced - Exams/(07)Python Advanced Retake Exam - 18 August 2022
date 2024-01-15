@@ -1,1 +1,35 @@
+# First Problem
+
+seats = [x for x in input().split(", ")]
+first = [int(x) for x in input().split(", ")]
+second = [int(x) for x in input().split(", ")]
+seat_matches = []
+rotations = 0
+
+while len(seat_matches) != 3 and rotations != 10:
+    num1 = first.pop(0)
+    num2 = second.pop()
+    result = chr(num1 + num2)
+    seat1 = f"{num1}{result}"
+    seat2 = f"{num2}{result}"
+    rotations += 1
+    if seat1 in seats and seat1 not in seat_matches:
+        seat_matches.append(seat1)
+        continue
+    elif seat2 in seats and seat2 not in seat_matches:
+        seat_matches.append(seat2)
+        continue
+
+    if seat1 not in seats and seat2 not in seats:
+        first.append(num1)
+        second.insert(0, num2)
+
+    if seat1 in seat_matches or seat2 in seat_matches:
+        continue
+
+print(f"Seat matches: {', '.join(seat_matches)}")
+print(f"Rotations count: {rotations}")
+
+
+
 
