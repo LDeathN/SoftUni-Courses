@@ -137,3 +137,28 @@ while True:
 
 for line in matrix:
     print(" ".join(line))
+
+
+
+# Third Problem
+
+def add_songs(*args):
+    songs = {}
+    result = []
+    for pair in args:
+        name, lyrics = pair[0], pair[1]
+        if name not in songs:
+            songs[name] = lyrics
+        else:
+            songs[name].append(lyrics)
+    for name, lyrics in songs.items():
+        result.append(f"- {name}")
+        for lines in lyrics:
+                for line in lines:
+                    if len(line) > 1:
+                        result.append(line)
+                    else:
+                        result.append(lines)
+                        break
+    return "\n".join(result)
+
