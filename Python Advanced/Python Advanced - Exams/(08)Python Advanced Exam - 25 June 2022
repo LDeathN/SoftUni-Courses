@@ -31,5 +31,56 @@ if papers:
 
 
 
+# Second Problem
 
+first, second = input().split(", ")
+matrix = [[x for x in input().split(" ")] for _ in range(6)]
+traps = []
+walls = []
+count = 0
+rest1 = 0
+rest2 = 0
+player = None
+waiting = None
+exit = None
+
+for i in range(6):
+    for j in range(6):
+        if matrix[i][j] == "E":
+            exit = (i, j)
+        elif matrix[i][j] == "T":
+            traps.append((i, j))
+        elif matrix[i][j] == "W":
+            walls.append((i, j))
+
+while True:
+    command = input()
+    command = tuple((int(command[1]), int(command[4])))
+    count += 1
+    if count % 2 != 0:
+        if rest1 == 0:
+            player = first
+            waiting = second
+        else:
+            rest1 -= 1
+            continue
+    elif count % 2 == 0:
+        if rest2 == 0:
+            player = second
+            waiting = first
+        else:
+            rest2 -= 1
+            continue
+    if command == exit:
+        print(f"{player} found the Exit and wins the game!")
+        break
+    elif command in traps:
+        print(f"{player} is out of the game! The winner is {waiting}.")
+        break
+    elif command in walls:
+        print(f"{player} hits a wall and needs to rest.")
+        if player == first:
+            rest1 += 1
+        elif player == second:
+            rest2 += 1
 
