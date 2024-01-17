@@ -137,3 +137,29 @@ else:
     print(f"Area not suitable to start the colony.")
 
 
+
+# Third Problem
+
+def words_sorting(*args):
+    words = {}
+    result = []
+    total = 0
+
+    for word in args:
+        ascii_value = 0
+        for letter in word:
+            ascii_value += ord(letter)
+        total += ascii_value
+        words[word] = ascii_value
+
+    if total % 2 == 0:
+        words = sorted(words.items(), key=lambda x: x)
+        words = dict(words)
+    else:
+        words = sorted(words.items(), key=lambda x: x[1], reverse=True)
+        words = dict(words)
+
+    for word, value in words.items():
+        result.append(f"{word} - {value}")
+
+    return "\n".join(result)
