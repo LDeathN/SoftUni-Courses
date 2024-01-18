@@ -92,3 +92,28 @@ while True:
 
 
 
+# Third Problem
+
+def start_spring(**kwargs):
+    result = []
+    spring = {}
+    for key, value in kwargs.items():
+        if value not in spring:
+            spring[value] = []
+        spring[value].append(key)
+
+    spring = sorted(spring.items(), key=lambda x: x)
+    spring = dict(spring)
+    spring = sorted(spring.items(), key=lambda x: len(x[1]), reverse=True)
+    spring = dict(spring)
+
+    for key, values in spring.items():
+        if spring[key]:
+            result.append(f"{key}:")
+            values = sorted(values, key=lambda x: x)
+            for value in values:
+                result.append(f"-{value}")
+
+    return "\n".join(result)
+
+
