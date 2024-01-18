@@ -1,1 +1,25 @@
+# First Problem
 
+vowels = [x for x in input().split(" ")]
+consonants = [x for x in input().split(" ")]
+words = ["rose", "tulip", "lotus", "daffodil"]
+result = {"rose": "", "tulip": "", "lotus": "", "daffodil": ""}
+stop =True
+while vowels and consonants and stop:
+    vowel = vowels.pop(0)
+    consonant = consonants.pop()
+    for word in words:
+        if vowel in word and vowel not in result[word]:
+            result[word] += vowel * len([x for x in word if x == vowel])
+        if consonant in word and consonant not in result[word]:
+            result[word] += consonant * len([x for x in word if x == consonant])
+        if len(result[word]) >= len(word):
+            print(f"Word found: {word}")
+            stop = False
+            break
+if stop:
+    print("Cannot find any word!")
+if vowels:
+    print(f"Vowels left: {' '.join(vowels)}")
+if consonants:
+    print(f"Consonants left: {' '.join(consonants)}")
