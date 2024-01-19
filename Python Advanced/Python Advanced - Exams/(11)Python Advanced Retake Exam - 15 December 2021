@@ -266,3 +266,49 @@ print(f"- {collected_gifts} Gifts")
 print(f"- {collected_cookies} Cookies")
 for line in matrix:
     print(" ".join(line))
+
+
+
+# Third Problem
+
+def naughty_or_nice_list(santa_list, *args, **kwargs):
+    nice_list = []
+    naughty_list = []
+    not_found_list = []
+
+    for arg in args:
+        if arg.endswith("-Nice") or arg.endswith("-Naughty"):
+            counting_number = int(arg.split('-')[0])
+            matching_kids = [kid for kid in santa_list if kid[0] == counting_number]
+            if len(matching_kids) == 1:
+                if arg.endswith("-Nice"):
+                    nice_list.append(matching_kids[0][1])
+                    santa_list.remove(matching_kids[0])
+                else:
+                    naughty_list.append(matching_kids[0][1])
+                    santa_list.remove(matching_kids[0])
+
+    for key, value in kwargs.items():
+        matching_kids = [kid for kid in santa_list if kid[1] == key]
+        if len(matching_kids) == 1:
+            if value == "Nice":
+                nice_list.append(matching_kids[0][1])
+                santa_list.remove(matching_kids[0])
+            elif value == "Naughty":
+                naughty_list.append(matching_kids[0][1])
+                santa_list.remove(matching_kids[0])
+
+    for kid in santa_list:
+        not_found_list.append(kid[1])
+
+    result = []
+    if nice_list:
+        result.append("Nice: " + ", ".join(nice_list))
+    if naughty_list:
+        result.append("Naughty: " + ", ".join(naughty_list))
+    if not_found_list:
+        result.append("Not found: " + ", ".join(not_found_list))
+
+    return "\n".join(result)
+
+
