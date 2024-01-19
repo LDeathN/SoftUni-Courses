@@ -1,1 +1,60 @@
+# First Problem
 
+energies = [int(x) for x in input().split()]
+materials = [int(x) for x in input().split()]
+toys = 0
+count = 0
+total_energy = 0
+while energies and materials:
+    count += 1
+    elf = energies.pop(0)
+    if elf < 5:
+        count -= 1
+        continue
+    box = materials.pop()
+    if count % 3 == 0 and count % 5 == 0:
+        if elf >= box * 2:
+            total_energy += box * 2
+            elf -= box * 2
+            energies.append(elf)
+        else:
+            elf *= 2
+            energies.append(elf)
+            materials.append(box)
+    elif count % 3 == 0:
+        if elf >= box * 2:
+            total_energy += box * 2
+            toys += 2
+            elf = (elf - (box * 2)) + 1
+            energies.append(elf)
+        else:
+            elf *= 2
+            energies.append(elf)
+            materials.append(box)
+    elif count % 5 == 0:
+        if elf >= box:
+            total_energy += box
+            elf -= box
+            energies.append(elf)
+        else:
+            elf *= 2
+            energies.append(elf)
+            materials.append(box)
+    else:
+        if elf >= box:
+            total_energy += box
+            elf = (elf - box) + 1
+            toys += 1
+            energies.append(elf)
+        else:
+            elf *= 2
+            energies.append(elf)
+            materials.append(box)
+
+print(f"Toys: {toys}")
+print(f"Energy: {total_energy}")
+
+if energies:
+    print(f"Elves left: {', '.join([str(x) for x in energies])}")
+if materials:
+    print(f"Boxes left: {', '.join([str(x) for x in materials])}")
