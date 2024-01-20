@@ -68,3 +68,41 @@ if gifts["Gold"] >= 1:
 if gifts["Porcelain Sculpture"] >= 1:
     print(f'Porcelain Sculpture: {gifts["Porcelain Sculpture"]}')
 
+
+
+# Second Problem
+
+matrix = [[x for x in input().split(" ")] for _ in range(6)]
+buckets = []
+total_points = 0
+reward = ""
+
+for i in range(6):
+    for j in range(6):
+        if matrix[i][j] == "B":
+            buckets.append((i, j))
+
+for i in range(3):
+    position = input()
+    position = [int(x) for x in position[1:len(position) - 1].split(", ")]
+    x, y = int(position[0]), int(position[1])
+    if (x, y) in buckets:
+        buckets.remove((x, y))
+        matrix[x][y] = "0"
+        for j in range(0, 6):
+            if matrix[j][y] != "B":
+                total_points += int(matrix[j][y])
+
+if 100 <= total_points <= 199:
+    reward = "Football"
+elif 200 <= total_points <= 299:
+    reward = "Teddy Bear"
+elif 300 <= total_points:
+    reward = "Lego Construction Set"
+
+if reward:
+    print(f"Good job! You scored {total_points} points, and you've won {reward}.")
+else:
+    print(f"Sorry! You need {100 - total_points} points more to win a prize.")
+
+
