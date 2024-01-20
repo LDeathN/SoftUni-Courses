@@ -106,3 +106,24 @@ else:
     print(f"Sorry! You need {100 - total_points} points more to win a prize.")
 
 
+
+# Third Problem
+
+def shopping_list(budget, **words):
+    result = []
+    bought = 0
+    if budget >= 100:
+        for key, value in words.items():
+            price, amount = float(value[0]), int(value[1])
+            if budget - (price * amount) >= 0:
+                bought += 1
+                budget -= price * amount
+                result.append(f"You bought {key} for {(price * amount):.2f} leva.")
+                if bought == 5:
+                    break
+    else:
+        result.append(f"You do not have enough budget.")
+
+    return "\n".join(result)
+
+
