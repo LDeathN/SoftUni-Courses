@@ -72,3 +72,4 @@ while True:
         scores[player] = points
         if points <= 0:
             print(f"{player} won the game with {turn} throws!")
+            break
