@@ -73,3 +73,23 @@ while True:
         if points <= 0:
             print(f"{player} won the game with {turn} throws!")
             break
+
+
+
+# Third Problem
+
+def flights(*args):
+    flight_list = {}
+    count = 0
+    while True:
+        destination = args[count]
+        if destination == "Finish":
+            break
+        passengers = args[count + 1]
+        if destination not in flight_list:
+            flight_list[destination] = 0
+        flight_list[destination] += passengers
+        count += 2
+
+    return flight_list
+
