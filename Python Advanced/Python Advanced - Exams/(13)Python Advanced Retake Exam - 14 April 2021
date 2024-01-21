@@ -1,1 +1,26 @@
+# First Problem
 
+orders = [int(x) for x in input().split(", ")]
+employees = [int(x) for x in input().split(", ")]
+total_pizza = 0
+
+while orders and employees:
+    order = orders.pop(0)
+    if order > 10 or order <= 0:
+        continue
+    employee = employees.pop()
+    if employee >= order:
+        total_pizza += order
+        continue
+    else:
+        order -= employee
+        total_pizza += employee
+        orders.insert(0, order)
+
+if not orders:
+    print(f"All orders are successfully completed!")
+    print(f"Total pizzas made: {total_pizza}")
+    print(f"Employees: {', '.join([str(x) for x in employees])}")
+else:
+    print(f"Not all orders are completed.")
+    print(f"Orders left: {', '.join([str(x) for x in orders])}")
