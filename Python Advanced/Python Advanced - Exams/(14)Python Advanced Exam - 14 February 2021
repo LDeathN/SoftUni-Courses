@@ -162,3 +162,33 @@ while True:
 print("Your path:")
 for element in path:
     print(element)
+
+
+
+# Third Problem
+
+def stock_availability(flavours, option, *args):
+    if option == "delivery":
+        for element in args:
+            flavours.append(element)
+    elif option == "sell":
+        if args:
+            for element in args:
+                if type(element) == int:
+                    element = int(args[0])
+                    for i in range(element):
+                        flavours.remove(flavours[0])
+                else:
+                    for flavour in flavours:
+                        if flavour == element:
+                            number = flavours.count(flavour)
+                            for j in range(number):
+                                flavours.remove(flavour)
+
+        else:
+            flavours.remove(flavours[0])
+
+    return flavours
+
+
+
