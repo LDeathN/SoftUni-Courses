@@ -110,3 +110,21 @@ for i in range(commands):
 print(word)
 for line in matrix:
     print("".join(line))
+
+
+
+# Third Problem
+
+def get_magic_triangle(n):
+    magic_triangle = [[1], [1, 1]]
+
+    for i in range(2, n):
+        row = [1]  # First element in each row is always 1
+        for j in range(1, i):
+            # Each number in the row is the sum of the two numbers above it
+            current_number = magic_triangle[i - 1][j - 1] + magic_triangle[i - 1][j]
+            row.append(current_number)
+        row.append(1)  # Last element in each row is always 1
+        magic_triangle.append(row)
+
+    return magic_triangle
