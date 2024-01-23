@@ -1,1 +1,38 @@
+# First Problem
 
+males = list(map(int, input().split()))
+females = list(map(int, input().split()))
+
+matches_count = 0
+male_index = len(males) - 1
+female_index = 0
+
+while male_index >= 0 and female_index < len(females):
+    current_male = males[male_index]
+    current_female = females[female_index]
+
+    if current_male <= 0:
+        males.pop(male_index)
+    elif current_female <= 0:
+        females.pop(female_index)
+    elif current_male % 25 == 0:
+        males.pop(male_index)
+        if male_index < len(males) and males[male_index] % 25 == 0:
+            males.pop(male_index)
+    elif current_female % 25 == 0:
+        females.pop(female_index)
+        if female_index < len(females) and females[female_index] % 25 == 0:
+            females.pop(female_index)
+    elif current_male == current_female:
+        males.pop(male_index)
+        females.pop(female_index)
+        matches_count += 1
+    else:
+        females.pop(female_index)
+        males[male_index] -= 2
+        male_index += 1
+    male_index -= 1
+
+print(f"Matches: {matches_count}")
+print(f"Males left: {'none' if not males else ', '.join(map(str, reversed(males)))}")
+print(f"Females left: {'none' if not females else ', '.join(map(str, females))}")
