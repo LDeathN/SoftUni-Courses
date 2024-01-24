@@ -14,3 +14,51 @@ while True:
     if index == wanted_index:
         print(total)
         break
+
+
+
+# Second Problem
+
+board = [[x for x in input().split()] for i in range(8)]
+king = None
+queens = []
+checks = []
+
+for i in range(8):
+    for j in range(8):
+        if board[i][j] == "K":
+            king = (i, j)
+        elif board[i][j] == "Q":
+            queens.append((i, j))
+
+for queen in queens:
+    qx, qy = queen
+    kx, ky = king
+
+    if qx == kx or qy == ky or abs(qx - kx) == abs(qy - ky):
+        flag = True
+        for i in range(min(qx, kx) + 1, max(qx, kx)):
+            if (i, qy) in queens:
+                flag = False
+                break
+        for j in range(min(qy, ky) + 1, max(qy, ky)):
+            if (qx, j) in queens:
+                flag = False
+                break
+        for i, j in zip(range(qx + 1, kx), range(qy + 1, ky)):
+            if (i, j) in queens:
+                flag = False
+                break
+        for i, j in zip(range(qx + 1, kx), range(qy - 1, ky, -1)):
+            if (i, j) in queens:
+                flag = False
+                break
+
+        if flag:
+            checks.append([qx, qy])
+
+if checks:
+    for check in checks:
+        print(check)
+else:
+    print("The king is safe!")
