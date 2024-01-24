@@ -62,3 +62,23 @@ if checks:
         print(check)
 else:
     print("The king is safe!")
+
+
+
+# Third Problem
+
+def best_list_pureness(numbers, rotations):
+    best_sum = 0
+    best_rotation = None
+
+    for i in range(rotations + 1):
+        current_sum = 0
+        for j in range(len(numbers)):
+            current_sum += j * numbers[j]
+        if current_sum > best_sum:
+            best_sum = current_sum
+            best_rotation = i
+        number = numbers.pop()
+        numbers.insert(0, number)
+    message = f"Best pureness {best_sum} after {best_rotation} rotations"
+    return message
