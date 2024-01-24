@@ -1,1 +1,16 @@
+# First Problem
 
+jobs = [int(x) for x in input().split(", ")]
+wanted_index = int(input())
+total = 0
+while True:
+    smallest = 1000
+    for i in range(len(jobs)):
+        if jobs[i] < smallest and jobs[i] != 0:
+            smallest = jobs[i]
+            index = i
+    jobs[index] = 0
+    total += smallest
+    if index == wanted_index:
+        print(total)
+        break
