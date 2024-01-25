@@ -77,3 +77,23 @@ for line in matrix:
 
 
 
+# Third Problem
+
+def numbers_searching(*numbers):
+    duplicates = []
+    unique = []
+    missing = None
+    biggest_number = max(numbers)
+    smallest_number = min(numbers)
+    for i in range(smallest_number, biggest_number):
+        if i not in numbers:
+            missing = i
+    for number in numbers:
+        if number not in unique:
+            unique.append(number)
+        else:
+            if number not in duplicates:
+                duplicates.append(number)
+    result = [missing, sorted(duplicates)]
+    return result
+
