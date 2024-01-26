@@ -1,1 +1,40 @@
+# First Problem
 
+effects = [int(x) for x in input().split(", ")]
+casings = [int(x) for x in input().split(", ")]
+materials = {"Cherry Bombs": 0, "Datura Bombs": 0, "Smoke Decoy Bombs": 0}
+flag = True
+
+while effects and casings and flag:
+    effect = effects.pop(0)
+    casing = casings.pop()
+    if effect + casing == 40:
+        materials["Datura Bombs"] += 1
+    elif effect + casing == 60:
+        materials["Cherry Bombs"] += 1
+    elif effect + casing == 120:
+        materials["Smoke Decoy Bombs"] += 1
+    else:
+        casing -= 5
+        effects.insert(0, effect)
+        casings.append(casing)
+    if materials["Smoke Decoy Bombs"] >= 3 and materials["Datura Bombs"] >= 3 and materials["Cherry Bombs"] >= 3:
+        flag = False
+
+if not flag:
+    print(f"Bene! You have successfully filled the bomb pouch!")
+else:
+    print(f"You don't have enough materials to fill the bomb pouch.")
+
+if effects:
+    print(f"Bomb Effects: {', '.join([str(x) for x in effects])}")
+else:
+    print(f"Bomb Effects: empty")
+
+if casings:
+    print(f"Bomb Casings: {', '.join([str(x) for x in casings])}")
+else:
+    print(f"Bomb Casings: empty")
+
+for bomb, count in materials.items():
+    print(f"{bomb}: {count}")
