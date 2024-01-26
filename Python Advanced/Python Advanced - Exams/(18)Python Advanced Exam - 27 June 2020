@@ -174,3 +174,31 @@ for line in matrix:
     print("".join(line))
 
 
+
+# Third Problem
+
+def list_manipulator(numbers, command, position, *new):
+    if command == "remove":
+        if position == "end":
+            if new:
+                for i in range(new[0]):
+                    numbers.pop()
+            else:
+                numbers.pop()
+        elif position == "beginning":
+            if new:
+                for i in range(new[0]):
+                    numbers.pop(0)
+            else:
+                numbers.pop(0)
+    elif command == "add":
+        if position == "end":
+            for number in new:
+                numbers.append(number)
+        elif position == "beginning":
+            for number in reversed(new):
+                numbers.insert(0, number)
+
+    return numbers
+
+
