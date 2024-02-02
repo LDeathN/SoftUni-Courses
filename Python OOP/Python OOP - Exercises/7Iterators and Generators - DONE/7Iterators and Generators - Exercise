@@ -19,3 +19,35 @@ class take_skip:
             self.number += self.step
             return self.number
         raise StopIteration
+
+
+# Second Problem
+
+class dictionary_iter:
+    def __init__(self, dictionary: dict):
+        self.dictionary = dictionary
+        self.dictionary_items = list(self.dictionary.items())
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        while self.dictionary_items:
+            return self.dictionary_items.pop(0)
+        raise StopIteration
+
+
+# Third Problem
+
+class countdown_iterator:
+    def __init__(self, count):
+        self.count = count
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        while self.count >= 0:
+            self.count -= 1
+            return self.count + 1
+        raise StopIteration
