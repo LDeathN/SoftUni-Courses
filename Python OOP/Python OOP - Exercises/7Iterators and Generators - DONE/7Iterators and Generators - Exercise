@@ -95,3 +95,26 @@ def solution():
         return result
 
     return take, halves, integers
+
+
+
+# Sixth Problem
+
+def fibonacci():
+    num1 = 0
+    num2 = 1
+    yield num1
+    while True:
+        yield num2
+        next_num = num1 + num2
+        num1 = num2
+        num2 = next_num
+
+
+
+# Seventh Problem
+
+def read_next(*args):
+    for arg in args:
+        for element in arg:
+            yield element
