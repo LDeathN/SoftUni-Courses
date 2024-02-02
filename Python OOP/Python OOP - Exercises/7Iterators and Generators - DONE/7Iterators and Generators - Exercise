@@ -21,6 +21,7 @@ class take_skip:
         raise StopIteration
 
 
+
 # Second Problem
 
 class dictionary_iter:
@@ -37,6 +38,7 @@ class dictionary_iter:
         raise StopIteration
 
 
+
 # Third Problem
 
 class countdown_iterator:
@@ -51,3 +53,45 @@ class countdown_iterator:
             self.count -= 1
             return self.count + 1
         raise StopIteration
+
+
+
+# Fourth Problem
+
+class sequence_repeat:
+    def __init__(self, sequence: str, number: int):
+        self.sequence = sequence
+        self.number = number
+        self.count = -1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        while self.count != self.number - 1:
+            self.count += 1
+            return self.sequence[self.count % len(self.sequence)]
+        raise StopIteration
+
+
+
+# Fifth Problem
+
+def solution():
+    def integers():
+        current = 1
+        while True:
+            yield current
+            current += 1
+
+    def halves():
+        for number in integers():
+            yield number / 2
+
+    def take(n, seq):
+        result = []
+        for _ in range(n):
+            result.append(next(seq))
+        return result
+
+    return take, halves, integers
