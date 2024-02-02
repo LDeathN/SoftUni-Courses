@@ -1,1 +1,21 @@
+# First Problem
 
+class take_skip:
+    def __init__(self, step: int, count: int):
+        self.step = step
+        self.count = count
+        self.current = 0
+        self.number = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        while self.current != self.count:
+            if self.current == 0:
+                self.current += 1
+                return self.number
+            self.current += 1
+            self.number += self.step
+            return self.number
+        raise StopIteration
