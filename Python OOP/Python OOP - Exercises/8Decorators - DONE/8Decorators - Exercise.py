@@ -91,3 +91,79 @@ def tags(type):
             return f"<{type}>{result}</{type}>"
         return wrapper
     return decorator
+
+
+# Seventh Problem
+
+class store_results:
+    def __init__(self, func):
+        self.func = func
+        self.filename = "results.txt"
+
+    def __call__(self, *args, **kwargs):
+        result = self.func(*args, **kwargs)
+        with open(self.filename, "a") as file:
+            file.write(f"Function '{self.func.__name__}' was called. Result: {result}\n")
+        return result
+
+
+@store_results
+def add(a, b):
+    return a + b
+
+
+@store_results
+def mult(a, b):
+    return a * b
+
+
+add(2, 2)
+mult(6, 4)
+
+
+# Eighth Problem
+import time
+
+
+class exec_time:
+    def __init__(self, func):
+        self.func = func
+
+    def __call__(self, *args, **kwargs):
+        start_time = time.time()
+        result = self.func(*args, **kwargs)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        return elapsed_time
+
+
+@exec_time
+def loop_sum(start, end):
+    total = 0
+    for x in range(start, end):
+        total += x
+    return total
+
+
+print(loop_sum(1, 10000000))
+
+
+@exec_time
+def concatenate(strings):
+    result = ""
+    for string in strings:
+        result += string
+    return result
+
+
+print(concatenate(["a" for i in range(1000000)]))
+
+
+@exec_time
+def loop_count():
+    count = 0
+    for i in range(1, 9999999):
+        count += 1
+
+
+print(loop_count())
