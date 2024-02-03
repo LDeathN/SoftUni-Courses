@@ -23,4 +23,37 @@ def even_parameters(decorated_func):
     return decorator
 
 
+# Third Problem
 
+def make_bold(decorated_func):
+    def decorator(*args, **kwargs):
+        result = decorated_func(*args, **kwargs)
+        return f"<b>{result}</b>"
+    return decorator
+
+
+def make_italic(decorated_func):
+    def decorator(*args, **kwargs):
+        result = decorated_func(*args, **kwargs)
+        return f"<i>{result}</i>"
+    return decorator
+
+
+def make_underline(decorated_func):
+    def decorator(*args, **kwargs):
+        result = decorated_func(*args, **kwargs)
+        return f"<u>{result}</u>"
+    return decorator
+
+
+# Fourth Problem
+
+def type_check(types):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for arg in args:
+                if not isinstance(arg, types):
+                    return f"Bad Type"
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
