@@ -57,3 +57,37 @@ def type_check(types):
             return func(*args, **kwargs)
         return wrapper
     return decorator
+
+
+# Fifth Problem
+import functools
+
+
+def cache(func):
+    @functools.wraps(func)
+    def wrapper(n):
+        if not hasattr(wrapper, 'log'):
+            wrapper.log = {}
+        if n not in wrapper.log:
+            wrapper.log[n] = func(n)
+        return wrapper.log[n]
+
+    return wrapper
+
+@cache
+def fibonacci(n):
+    if n <= 1:
+        return n
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
+
+
+# Sixth Problem
+
+def tags(type):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            return f"<{type}>{result}</{type}>"
+        return wrapper
+    return decorator
