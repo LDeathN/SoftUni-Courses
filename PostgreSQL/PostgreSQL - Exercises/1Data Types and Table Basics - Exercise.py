@@ -36,3 +36,9 @@ ALTER COLUMN salary SET NOT NULL;
 ALTER TABLE employees
 ALTER COLUMN hiring_date SET NOT NULL;
 
+
+#Fourth Problem
+ALTER TABLE employees
+ALTER COLUMN middle_name TYPE VARCHAR(100);
+
+
