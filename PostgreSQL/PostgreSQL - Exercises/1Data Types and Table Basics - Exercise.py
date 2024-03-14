@@ -22,7 +22,17 @@ CREATE TABLE issues (
     start TIMESTAMP WITHOUT TIME ZONE
 );
 
+
 #Second Problem
 ALTER TABLE employees
 ADD COLUMN middle_name VARCHAR(50);
+
+
+#Third Problem
+ALTER TABLE employees
+ALTER COLUMN salary SET DEFAULT 0,
+ALTER COLUMN salary SET NOT NULL;
+
+ALTER TABLE employees
+ALTER COLUMN hiring_date SET NOT NULL;
 
