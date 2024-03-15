@@ -55,3 +55,8 @@ ADD CONSTRAINT unique_constraint UNIQUE (id, email),
 ADD CONSTRAINT banana_check CHECK (banana > 0);
 
 
+#Eigth Problem
+ALTER TABLE minions_info
+ALTER COLUMN task TYPE VARCHAR(150);
+
+
