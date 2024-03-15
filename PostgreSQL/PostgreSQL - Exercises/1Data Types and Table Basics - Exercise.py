@@ -96,3 +96,13 @@ VALUES
     ('Donny', 'L', 'Make a Map', 8.452, 'donny@minion.com', true, 'happy');
 
 
+#Thirteenth Problem
+SELECT name, task, email, banana FROM minions_info;
+
+
+#Fourteenth Problem
+TRUNCATE TABLE minions_info;
+
+
+#Fifteenth Problem
+DROP TABLE minions_birthdays;
