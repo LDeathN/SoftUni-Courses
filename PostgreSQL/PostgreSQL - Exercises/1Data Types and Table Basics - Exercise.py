@@ -22,3 +22,12 @@ ALTER TABLE minions_info
 RENAME COLUMN salary TO banana;
 
 
+#Fourth Problem
+ALTER TABLE minions_info
+ADD COLUMN email VARCHAR(20),
+ADD COLUMN equipped BOOLEAN;
+
+ALTER TABLE minions_info
+ALTER COLUMN equipped SET NOT NULL;
+
+
