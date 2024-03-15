@@ -15,3 +15,10 @@ ADD task TEXT;
 
 ALTER TABLE minions_info
 ADD salary NUMERIC(8, 3);
+
+
+#Third Problem
+ALTER TABLE minions_info
+RENAME COLUMN salary TO banana;
+
+
