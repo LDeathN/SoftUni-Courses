@@ -60,3 +60,8 @@ ALTER TABLE minions_info
 ALTER COLUMN task TYPE VARCHAR(150);
 
 
+#Ninth Problem
+ALTER TABLE minions_info
+ALTER COLUMN equipped DROP NOT NULL;
+
+
