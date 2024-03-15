@@ -70,3 +70,17 @@ ALTER TABLE minions_info
 DROP COLUMN age;
 
 
+#Eleventh Problem
+CREATE TABLE minions_birthdays (
+id SERIAL PRIMARY KEY,
+name VARCHAR(50) NOT NULL,
+date_of_birth DATE NOT NULL,
+age INTEGER NOT NULL,
+present VARCHAR(100),
+party TIMESTAMP with TIME ZONE NOT NULL
+);
+
+ALTER TABLE minions_birthdays
+ADD CONSTRAINT unique_id_constraint UNIQUE (id);
+
+
