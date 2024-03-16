@@ -14,3 +14,12 @@ WHERE department_id = 4 AND salary >= 1000
 ORDER BY id;
 
 
+#Fourth Problem
+INSERT INTO employees(first_name, last_name, job_title, department_id, salary)
+VALUES 
+('Samantha', 'Young',' Housekeeping', 4, 900),
+('Roger', 'Palmer', 'Waiter', 3, 928.33);
+
+SELECT * FROM employees;
+
+
