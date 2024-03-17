@@ -77,3 +77,43 @@ VALUES
 CREATE TABLE company_chart AS
 SELECT CONCAT(first_name, ' ', last_name) AS full_name, job_title, department_id, manager_id
 FROM employees;
+
+
+UPDATE projects
+SET end_date = start_date + INTERVAL '5 months'
+WHERE end_date IS NULL;
+
+-- Retrieve all projects
+SELECT *
+FROM projects;
+
+
+UPDATE employees
+SET salary = salary + 1500,
+job_title = CONCAT('Senior ', job_title)
+WHERE hire_date BETWEEN '1988-01-01' AND '2000-01-05';
+
+SELECT first_name, job_title, salary FROM employees
+WHERE hire_date BETWEEN '1988-01-01' AND '2000-01-05';
+
+
+DELETE FROM addresses
+WHERE city_id = 5 OR
+city_id = 17 OR
+city_id = 20 OR
+city_id = 30;
+
+
+CREATE VIEW view_company_chart AS
+SELECT full_name, job_title FROM company_chart
+WHERE manager_id = 184;
+
+
+CREATE VIEW view_addresses AS
+SELECT CONCAT(first_name, ' ', last_name) AS full_name, department_id,
+       CONCAT(number, ' ', street) AS address
+FROM employees
+JOIN addresses ON employees.address_id = addresses.id
+ORDER BY address;
+
+
