@@ -117,3 +117,26 @@ JOIN addresses ON employees.address_id = addresses.id
 ORDER BY address;
 
 
+ALTER VIEW view_addresses RENAME TO view_employee_addresses_info;
+
+
+DROP VIEW IF EXISTS view_company_chart;
+
+
+UPDATE projects
+SET name = UPPER(name);
+
+
+CREATE VIEW view_initials AS
+SELECT
+    SUBSTRING(first_name, 1, 2) AS initial,
+    last_name
+FROM
+    employees
+ORDER BY
+    last_name;
+
+
+SELECT name, start_date FROM projects
+WHERE name LIKE 'MOUNT%'
+ORDER BY id;
