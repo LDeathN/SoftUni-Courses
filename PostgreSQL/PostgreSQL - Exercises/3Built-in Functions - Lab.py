@@ -37,3 +37,7 @@ SELECT last_name AS "Last Name",
 FROM authors;
 
 
+#Seventh Problem
+SELECT title FROM books
+WHERE title LIKE '%Harry Potter%'
+ORDER BY id;
