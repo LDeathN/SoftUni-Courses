@@ -134,3 +134,34 @@ ABS(longitude) AS "abs"
 FROM apartments;
 
 
+SELECT
+    EXTRACT(YEAR FROM booked_at) AS "YEAR",
+    EXTRACT(MONTH FROM booked_at) AS "MONTH",
+    EXTRACT(DAY FROM booked_at) AS "DAY",
+    EXTRACT(HOUR FROM booked_at AT TIME ZONE 'UTC') AS "HOUR",
+    EXTRACT(MINUTE FROM booked_at AT TIME ZONE 'UTC') AS "MINUTE",
+    CEILING(EXTRACT(SECOND FROM booked_at AT TIME ZONE 'UTC')) AS "SECOND"
+FROM bookings;
+
+
+SELECT companion_full_name, email
+FROM users
+WHERE companion_full_name ILIKE '%aNd%'
+AND email NOT LIKE '%@gmail';
+
+
+SELECT
+    SUBSTRING(first_name, 1, 2) AS initials,
+    COUNT(*) AS user_count
+FROM users
+GROUP BY initials
+ORDER BY user_count DESC, initials;
+
+
+SELECT SUM(booked_for)
+FROM bookings
+WHERE apartment_id = 90;
+
+
+SELECT AVG(multiplication) AS average_value
+FROM bookings_calculation;
