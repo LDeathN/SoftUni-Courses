@@ -97,3 +97,40 @@ WHERE iso_code IS NULL;
 SELECT * FROM countries;
 
 
+UPDATE countries
+SET country_code = LOWER(REVERSE(country_code));
+
+SELECT * FROM countries;
+
+
+SELECT CONCAT(elevation, ' ', REPEAT('-', 3), REPEAT('>', 2), ' ', peak_name) AS "Elevation -->> Peak Name"
+FROM peaks
+WHERE elevation >= 4884;
+
+
+CREATE TABLE bookings_calculation AS
+SELECT booked_for
+FROM bookings
+WHERE apartment_id = 93;
+
+ALTER TABLE bookings_calculation
+ADD COLUMN multiplication NUMERIC,
+ADD COLUMN modulo NUMERIC;
+
+UPDATE bookings_calculation
+SET
+    multiplication = booked_for * 50,
+    modulo = booked_for % 50;
+
+
+SELECT latitude,
+ROUND(latitude, 2) AS "round",
+TRUNC(latitude, 2) AS "trunc"
+FROM apartments;
+
+
+SELECT longitude,
+ABS(longitude) AS "abs"
+FROM apartments;
+
+
