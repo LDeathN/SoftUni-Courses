@@ -33,3 +33,33 @@ FROM
   view_river_info;
 
 
+SELECT
+    REPLACE(mountain_range, 'a', '@') AS "replace_a",
+    REPLACE(mountain_range, 'A', '$') AS "replace_A"
+FROM
+    mountains;
+
+
+SELECT capital,
+TRANSLATE(capital, 'áãåçéíñóú', 'aaaceinou') AS translated_name
+FROM countries;
+
+
+SELECT continent_name,
+TRIM(BOTH FROM continent_name) AS "trim"
+FROM continents;
+
+
+SELECT continent_name,
+TRIM(BOTH FROM continent_name) AS "trim"
+FROM continents;
+
+
+SELECT
+    TRIM('M' FROM peak_name) AS left_trim,
+    TRIM('m' FROM peak_name) AS right_trim
+FROM
+    peaks;
+
+
+    
