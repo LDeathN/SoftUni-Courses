@@ -62,4 +62,38 @@ FROM
     peaks;
 
 
-    
+SELECT 
+    CONCAT(mountain_range, ' ', peak_name) AS mountain_information,
+    LENGTH(CONCAT(mountain_range, ' ', peak_name)) AS characters_length,
+    BIT_LENGTH(CONCAT(mountain_range, ' ', peak_name))
+FROM mountains
+JOIN peaks ON mountains.id = peaks.mountain_id;
+
+
+SELECT
+    population,
+    LENGTH(CAST(population AS CHAR(20))) AS length
+FROM countries;
+
+
+SELECT
+    peak_name,
+    LEFT(peak_name, 4) AS positive_left,
+    CASE WHEN LENGTH(peak_name) - 4 > 0 THEN LEFT(peak_name, LENGTH(peak_name) - 4) ELSE '' END AS negative_left
+FROM peaks;
+
+
+SELECT
+    peak_name,
+    RIGHT(peak_name, 4) AS positive_right,
+    CASE WHEN LENGTH(peak_name) - 4 > 0 THEN RIGHT(peak_name, LENGTH(peak_name) - 4) ELSE '' END AS negative_right
+FROM peaks;
+
+
+UPDATE countries
+SET iso_code = UPPER(SUBSTRING(country_name, 1, 3))
+WHERE iso_code IS NULL;
+
+SELECT * FROM countries;
+
+
