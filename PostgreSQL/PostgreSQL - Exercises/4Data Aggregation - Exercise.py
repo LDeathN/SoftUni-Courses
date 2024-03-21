@@ -152,3 +152,43 @@ FROM projects
 WHERE project_name LIKE '%Mountain%';
 
 
+SELECT
+  department_id,
+  COUNT(*) AS num_employees,
+  CASE
+    WHEN AVG(salary) > 50000 THEN 'Above average'
+    ELSE 'Below average'
+  END AS salary_level
+FROM
+  employees
+GROUP BY
+  department_id
+HAVING
+  AVG(salary) > 30000
+ORDER BY
+  department_id;
+
+
+CREATE VIEW view_performance_rating AS
+SELECT first_name, last_name, job_title, salary, department_id,
+CASE
+WHEN salary >= 25000 AND job_title LIKE 'Senior%' THEN 'High-performing Senior'
+WHEN salary >= 25000 AND job_title NOT LIKE 'Senior%' THEN 'High-performing Employee'
+ELSE 'Average-performing'
+END AS performance_rating
+FROM employees;
+
+
+CREATE TABLE employees_projects (
+  id INT PRIMARY KEY,
+  employee_id INT,
+  project_id INT,
+  FOREIGN KEY (employee_id) REFERENCES employees(id),
+  FOREIGN KEY (project_id) REFERENCES projects(id)
+);
+
+
+SELECT *
+FROM departments
+JOIN employees ON departments.id = employees.department_id;
+
