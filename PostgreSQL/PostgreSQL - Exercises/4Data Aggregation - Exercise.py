@@ -98,3 +98,57 @@ ORDER BY
   age_group ASC;
 
 
+SELECT
+  COUNT(CASE WHEN department_id = 1 THEN 1 END) AS "Engineering",
+  COUNT(CASE WHEN department_id = 2 THEN 1 END) AS "Tool_Design",
+  COUNT(CASE WHEN department_id = 3 THEN 1 END) AS "Sales",
+  COUNT(CASE WHEN department_id = 4 THEN 1 END) AS "Marketing",
+  COUNT(CASE WHEN department_id = 5 THEN 1 END) AS "Purchasing",
+  COUNT(CASE WHEN department_id = 6 THEN 1 END) AS "Research_and_Development",
+  COUNT(CASE WHEN department_id = 7 THEN 1 END) AS "Production"
+FROM
+  employees;
+
+
+UPDATE employees
+SET
+  salary = CASE
+             WHEN hire_date < '2015-01-16' THEN salary + 2500
+             WHEN hire_date < '2020-03-04' THEN salary + 1500
+             ELSE salary
+           END,
+  job_title = CASE
+                WHEN hire_date < '2015-01-16' THEN CONCAT('Senior ', job_title)
+                WHEN hire_date < '2020-03-04' THEN CONCAT('Mid-', job_title)
+                ELSE job_title
+              END;
+			  
+SELECT first_name, job_title, salary
+FROM employees;
+
+
+SELECT
+  job_title,
+  CASE
+    WHEN AVG(salary) > 45800 THEN 'Good'
+    WHEN AVG(salary) BETWEEN 27500 AND 45800 THEN 'Medium'
+    ELSE 'Need Improvement'
+  END AS category
+FROM
+  employees
+GROUP BY
+  job_title
+ORDER BY
+  category ASC, job_title ASC;
+
+
+SELECT project_name,
+CASE
+WHEN start_date IS NULL AND end_date IS NULL THEN 'Ready for development'
+WHEN end_date IS NULL THEN 'In Progress'
+ELSE 'Done'
+END AS project_status
+FROM projects
+WHERE project_name LIKE '%Mountain%';
+
+
