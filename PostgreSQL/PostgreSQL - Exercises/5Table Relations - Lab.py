@@ -26,3 +26,19 @@ CONCAT(c.first_name, ' ', c.last_name) AS leader_name
 FROM routes AS r
 JOIN campers AS c
 ON r.leader_id = c.id;
+
+
+#Fourth Problem
+CREATE TABLE mountains(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(50) NOT NULL
+);
+CREATE TABLE peaks(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
+	mountain_id INT,
+	CONSTRAINT fk_mountain_id
+	FOREIGN KEY(mountain_id)
+	REFERENCES mountains(id)
+	ON DELETE CASCADE
+);
