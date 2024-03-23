@@ -274,3 +274,18 @@ CREATE TABLE order_items(
 	FOREIGN KEY (item_id)
 	REFERENCES items(id)
 );
+
+
+SELECT m.mountain_range, p.peak_name, p.elevation
+FROM mountains AS m
+JOIN peaks AS p
+ON p.mountain_id = m.id
+WHERE m.mountain_range LIKE '%Rila%'
+ORDER BY p.elevation DESC;
+
+
+SELECT COUNT(*)
+FROM countries AS c
+LEFT JOIN countries_rivers AS cr
+ON c.country_code = cr.country_code
+WHERE cr IS NULL;
