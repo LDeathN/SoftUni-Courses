@@ -19,3 +19,14 @@ ORDER BY e.employee_id
 LIMIT 5;
 
 
+#Third Problem
+SELECT e.employee_id, CONCAT(e.first_name, ' ', last_name) AS full_name,
+p.project_id, p.name
+FROM employees AS e
+JOIN employees_projects AS e_p
+ON e.employee_id = e_p.employee_id
+JOIN projects AS p
+ON p.project_id = e_p.project_id
+WHERE e_p.project_id = 1;
+
+
