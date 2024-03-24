@@ -30,3 +30,7 @@ ON p.project_id = e_p.project_id
 WHERE e_p.project_id = 1;
 
 
+#Fourth Problem
+SELECT COUNT(salary) AS count
+FROM employees
+WHERE salary > (SELECT AVG(salary) FROM employees);
