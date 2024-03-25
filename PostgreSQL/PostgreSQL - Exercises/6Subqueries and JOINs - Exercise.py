@@ -63,3 +63,37 @@ GROUP BY name
 ORDER BY name;
 
 
+SELECT a.country, COUNT(b.booking_id) AS booking_count
+FROM apartments a
+JOIN bookings b ON a.apartment_id = b.apartment_id
+WHERE b.booked_at > '2021-05-18 07:52:09.904+03' AND b.booked_at < '2021-09-17 19:48:02.147+03'  
+GROUP BY a.country
+ORDER BY COUNT (b.booking_id) DESC;
+
+
+SELECT m_c.country_code, m.mountain_range, p.peak_name, p.elevation
+FROM mountains_countries m_c
+JOIN mountains m ON m_c.mountain_id = m.id
+JOIN peaks p ON m_c.mountain_id = p.mountain_id
+WHERE p.elevation > 2835 AND m_c.country_code = 'BG'
+ORDER BY p.elevation DESC;
+
+
+SELECT m_c.country_code, COUNT(DISTINCT m.mountain_range) AS mountain_range_count
+FROM mountains_countries m_c
+JOIN mountains m ON m_c.mountain_id = m.id
+WHERE m_c.country_code = 'US' OR m_c.country_code = 'RU' OR m_c.country_code = 'BG'
+GROUP BY m_c.country_code
+ORDER BY mountain_range_count DESC;
+
+
+SELECT c.country_name, r.river_name
+FROM countries c
+FULL JOIN countries_rivers c_r ON c_r.country_code = c.country_code
+FULL JOIN rivers r ON c_r.river_id = r.id
+JOIN continents AS con ON c.continent_code = con.continent_code
+WHERE con.continent_name = 'Africa'
+ORDER BY c.country_name
+LIMIT 5;
+
+
