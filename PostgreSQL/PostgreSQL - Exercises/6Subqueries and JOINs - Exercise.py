@@ -156,3 +156,39 @@ WHERE c.three_rivers = false
 ORDER BY m.monastery_name;
 
 
+SELECT tablename, indexname, indexdef
+FROM pg_indexes
+WHERE schemaname = 'public'
+ORDER BY tablename ASC, indexname ASC;
+
+
+WITH row_number AS (
+    SELECT
+        c.country_name,
+        p.peak_name,
+        p.elevation,
+        m.mountain_range,
+        ROW_NUMBER() OVER (PARTITION BY c.country_name ORDER BY p.elevation DESC) AS ranking
+    FROM countries c
+	LEFT JOIN mountains_countries m_c ON m_c.country_code = c.country_code
+    LEFT JOIN mountains m ON m_c.mountain_id = m.id
+	LEFT JOIN peaks p ON m.id = p.mountain_id
+    
+)
+
+-- Select the required columns from the CTE and handle null values and display options
+SELECT
+    country_name,
+    COALESCE(peak_name, '(no highest peak)') AS peak_name,
+    COALESCE(elevation, 0) AS elevation,
+    CASE
+        WHEN peak_name IS NOT NULL THEN COALESCE(mountain_range, '(no mountain)')
+        ELSE '(no mountain)'
+    END AS mountain_range
+FROM row_number
+
+-- Filter the result set to only show the highest peaks for each country
+WHERE ranking = 1
+
+-- Order the result set as specified
+ORDER BY country_name ASC, elevation DESC;
