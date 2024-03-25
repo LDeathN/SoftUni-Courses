@@ -39,3 +39,27 @@ ORDER BY
     customer_name ASC;
 
 
+SELECT b.booking_id, b.apartment_id, c.companion_full_name
+FROM bookings b
+JOIN customers c ON b.customer_id = c.customer_id
+WHERE b.apartment_id IS NULL;
+
+
+SELECT b.apartment_id, b.booked_for, c.first_name, c.country
+FROM bookings b
+JOIN customers c ON b.customer_id = c.customer_id
+WHERE c.job_type LIKE '%Lead%';
+
+
+SELECT COUNT(*) AS count
+FROM customers
+WHERE last_name LIKE '%Hahn%';
+
+
+SELECT name, SUM(b.booked_for) AS sum
+FROM apartments a
+JOIN bookings b ON a.apartment_id = b.apartment_id
+GROUP BY name
+ORDER BY name;
+
+
