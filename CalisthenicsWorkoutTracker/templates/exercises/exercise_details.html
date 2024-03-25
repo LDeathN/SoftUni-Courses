@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main_content %}
+
+    <div class="exercise">
+        <h4>Exercise Name: {{ object.name }}</h4>
+        <p>Description: {{ object.description }}</p>
+        <p>Difficulty: {{ object.difficulty }}</p>
+        <p>Repetitions: {{ object.repetitions }}</p>
+        
+        {% if request.user == object.user %}
+            <a href="{% url 'edit_exercise' pk=object.pk program_id=program.pk workout_id=workout.pk%}">
+                <img class="edit-img" src="{% static 'images/edit_pen_icon.png' %}" alt="edit button">
+            </a>
+        
+            <a href="{% url 'delete_exercise' pk=object.pk program_id=program.pk workout_id=workout.pk%}">
+                <img class="bin-img" src="{% static 'images/icon_remove.png' %}" alt="bin button">
+            </a>
+        {% endif %}
+        <a href="{% url 'info_exercise' program_id=program.pk workout_id=workout.pk%}"> 
+                <button>Back</button>
+        </a>
+    </div>
+    
+{% endblock %}

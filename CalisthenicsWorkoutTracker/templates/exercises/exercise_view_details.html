@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main_content %}
+    <a href="{% url 'create_exercise' program_id=program.pk workout_id=workout.pk %}"><button>Add Exercise</button></a>
+    
+    {% if not exercises %}
+      <p class="no-articles">No exercises yet</p>
+        
+    
+    {% else %}
+    
+      <section id="exercises">
+        <h1>Total exercises: {{ exercises.count }}</h1>
+      
+        {% for exercise in exercises %}
+            <div class="exercise-card">
+              <h1>Exercise: {{ exercise.name }}</h1>
+                <p>Difficulty: {{ exercise.difficulty }}</p>
+              <div class="details-buttons">
+                  <a href="{% url 'details_exercise' pk=exercise.pk program_id=program.pk workout_id=workout.pk%}" class="">Details</a>
+              </div>
+            </div>    
+        {% endfor %}
+      {% endif %}
+        <a href="{% url 'info_workout' program_id=program.pk%}"> 
+                <button>Back</button>
+        </a>
+      </section>
+    
+{% endblock %}

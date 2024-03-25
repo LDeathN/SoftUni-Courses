@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main_content %}
+
+    <div class="workout">
+        {% if object.image_url %}
+            <img src="{{ object.image_url }}" alt="no photo">
+        {% else %}
+            <img src="{% static 'images/no_image.png' %}" alt="nothing">
+        {% endif %}
+        <h4>Workout Name: {{ object.name }}</h4>
+        <p>Description: {{ object.description }}</p>
+        <p>Difficulty: {{ object.difficulty }}</p>
+        <p>Duration: {{ object.duration }}</p>
+        {% if request.user == object.user %}
+            
+            <a href="{% url 'edit_workout' pk=object.pk program_id=program.pk%}">
+                <img class="edit-img" src="{% static 'images/edit_pen_icon.png' %}" alt="edit button">
+            </a>
+        
+            <a href="{% url 'delete_workout' pk=object.pk program_id=program.pk%}">
+                <img class="bin-img" src="{% static 'images/icon_remove.png' %}" alt="bin button">
+            </a>
+            
+        {% endif %}
+        <a href="{% url 'info_workout' program_id=program.pk%}"> 
+                <button>Back</button>
+        </a>
+    </div>
+    
+{% endblock %}

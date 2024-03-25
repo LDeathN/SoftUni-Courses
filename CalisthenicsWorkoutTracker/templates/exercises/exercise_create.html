@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+
+    <div class="edit-delete edit-program">
+        <h2>Create Exercise</h2>
+    
+        <form action="{% url 'create_exercise' program_id=program.pk workout_id=workout.pk%}" method="post">
+            {% csrf_token %}
+            
+            {{ form }}
+            
+            <button class="add-btn" type="submit">Create Exercise</button>
+        </form>
+    </div>
+
+{% endblock %}

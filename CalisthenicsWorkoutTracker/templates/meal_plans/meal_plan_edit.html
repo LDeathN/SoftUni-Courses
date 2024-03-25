@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+
+    <div class="edit-delete edit-program">
+        <h2>Edit Meal Plan</h2>
+    
+        <form action="{% url 'edit_meal_plan' pk=object.pk program_id=program.pk%}" method="post">
+            {% csrf_token %}
+            
+            {{ form }}
+            
+            <button class="edit-btn" type="submit">Edit</button>
+        </form>
+    </div>
+
+{% endblock %}

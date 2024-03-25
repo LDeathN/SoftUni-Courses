@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block main_content %}
+    <a href="{% url 'create_meal' program_id=program.pk meal_plan_id=meal_plan.pk%}"><button>Add Meal</button></a>
+    
+    {% if not meals %}
+      <p class="no-articles">No meals yet</p>
+        
+    
+    {% else %}
+    
+      <section id="meals">
+        <h1>Total meals: {{ meals.count }}</h1>
+      
+        {% for meal in meals %}
+            <div class="meal-card">
+            {% if meal.image_url %}
+                <img src="{{ meal.image_url }}" alt="no photo">
+            {% else %}
+                <img src="{% static 'images/no_image.png' %}" alt="no photo">
+            {% endif %}
+              <h1>Meal: {{ meal.name }}</h1>
+                <p>Calories: {{ meal.calories }}</p>
+                <p>Meal Type: {{ meal.meal_type }}</p>
+                <p>Meal Name Type: {{ meal.meal_name_type }}</p>
+              <div class="details-buttons">
+                  <a href="{% url 'details_meal' pk=meal.pk program_id=program.pk meal_plan_id=meal_plan.pk%}" class="">Details</a>
+              </div>
+            </div>    
+        {% endfor %}
+      {% endif %}
+        <a href="{% url 'info_meal_plan' program_id=program.pk%}"> 
+                <button>Back</button>
+        </a>
+      </section>
+    
+{% endblock %}
