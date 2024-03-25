@@ -97,3 +97,62 @@ ORDER BY c.country_name
 LIMIT 5;
 
 
+SELECT MIN(avg_area) AS min_average_area
+FROM (
+    SELECT AVG(c.area_in_sq_km) AS avg_area
+    FROM countries c
+    GROUP BY c.continent_code
+) AS continent_avg_areas_alias;
+
+
+SELECT COUNT(*) AS countries_without_mountains
+FROM countries c
+LEFT JOIN mountains_countries m_c ON m_c.country_code = c.country_code
+WHERE m_c.country_code IS NULL;
+
+
+CREATE TABLE monasteries (
+    id SERIAL PRIMARY KEY,
+    monastery_name VARCHAR(255) NOT NULL,
+    country_code CHAR(2) NOT NULL
+);
+
+INSERT INTO monasteries (monastery_name, country_code) VALUES
+('Rila Monastery "St. Ivan of Rila"', 'BG'),
+  ('Bachkovo Monastery "Virgin Mary"', 'BG'),
+  ('Troyan Monastery "Holy Mother''s Assumption"', 'BG'),
+  ('Kopan Monastery', 'NP'),
+  ('Thrangu Tashi Yangtse Monastery', 'NP'),
+  ('Shechen Tennyi Dargyeling Monastery', 'NP'),
+  ('Benchen Monastery', 'NP'),
+  ('Southern Shaolin Monastery', 'CN'),
+  ('Dabei Monastery', 'CN'),
+  ('Wa Sau Toi', 'CN'),
+  ('Lhunshigyia Monastery', 'CN'),
+  ('Rakya Monastery', 'CN'),
+  ('Monasteries of Meteora', 'GR'),
+  ('The Holy Monastery of Stavronikita', 'GR'),
+  ('Taung Kalat Monastery', 'MM'),
+  ('Pa-Auk Forest Monastery', 'MM'),
+  ('Taktsang Palphug Monastery', 'BT'),
+  ('Sümela Monastery', 'TR');
+
+ALTER TABLE countries
+ADD COLUMN three_rivers BOOLEAN DEFAULT false;
+
+UPDATE countries c
+SET three_rivers = true
+WHERE (
+    SELECT COUNT(*)
+    FROM rivers r
+	JOIN countries_rivers cr ON c.country_code = cr.country_code
+    WHERE r.id = cr.river_id
+) > 3;
+
+SELECT m.monastery_name AS monastery, c.country_name AS country
+FROM monasteries m
+JOIN countries c ON m.country_code = c.country_code
+WHERE c.three_rivers = false
+ORDER BY m.monastery_name;
+
+
