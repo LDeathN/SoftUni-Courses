@@ -115,3 +115,61 @@ BEGIN
 	WHERE row_num % 2 <> 0;
 END;
 $$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE PROCEDURE sp_deposit_money(
+    IN account_id INTEGER,
+    IN money_amount NUMERIC(10, 4)
+)
+LANGUAGE plpgsql AS $$
+BEGIN
+    UPDATE accounts
+    SET balance = balance + money_amount
+    WHERE id = account_id;
+
+    COMMIT;
+END;
+$$;
+
+
+CREATE OR REPLACE PROCEDURE sp_withdraw_money(
+    account_id INTEGER,
+    money_amount NUMERIC(10, 4)
+) AS 
+$$
+DECLARE
+    current_balance NUMERIC;
+BEGIN
+    current_balance := (SELECT balance FROM accounts WHERE id = account_id);
+	
+	IF (current_balance - money_amount) >= 0 THEN
+		UPDATE accounts
+		SET balance = balance - money_amount
+		WHERE id = account_id;
+	ELSE
+		RAISE NOTICE 'Insufficient balance to withdraw %', money_amount;
+	END IF;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE PROCEDURE sp_transfer_money(
+    sender_id INTEGER,
+    receiver_id INTEGER,
+    amount NUMERIC(10, 4)
+)
+LANGUAGE plpgsql AS $$
+DECLARE
+    current_balance NUMERIC;
+BEGIN
+    CALL sp_withdraw_money(sender_id, amount);
+	CALL sp_deposit_money(receiver_id, amount);
+	
+	SELECT balance INTO current_balance FROM accounts WHERE id = sender_id;
+	
+	IF (current_balance < 0) THEN
+		ROLLBACK;
+	END IF;
+END;
+$$;
