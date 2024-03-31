@@ -153,3 +153,50 @@ JOIN volunteers_departments vd ON v.department_id = vd.id
 WHERE vd.department_name = 'Education program assistant'
 AND v.address LIKE '%Sofia%'
 ORDER BY v.name;
+
+
+SELECT a.name AS animal, 
+TO_CHAR(a.birthdate, 'YYYY') AS "birth year",
+at.animal_type
+FROM animals a
+JOIN animal_types at ON a.animal_type_id = at.id
+WHERE a.owner_id IS NULL AND a.birthdate > '2017-01-01'
+AND at.animal_type NOT LIKE '%Birds%'
+ORDER BY a.name;
+
+
+CREATE OR REPLACE FUNCTION fn_get_volunteers_count_from_department(
+	searched_volunteers_department VARCHAR(30)
+)
+RETURNS INT
+AS $$
+DECLARE
+	count_value INT;
+BEGIN
+	SELECT COUNT(v.id) INTO count_value
+	FROM volunteers AS v
+	JOIN volunteers_departments AS vd
+    	ON 
+	v.department_id = vd."id"
+	WHERE vd.department_name = searched_volunteers_department;
+	
+	RETURN count_value;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE PROCEDURE sp_animals_with_owners_or_not(
+	IN animal_name VARCHAR(30),
+	OUT owner_name TEXT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+	SELECT COALESCE(o.name, 'For adoption')
+	INTO owner_name
+	FROM animals a
+	LEFT JOIN owners AS o on a.owner_id = o.id
+	WHERE a.name = animal_name;
+END;
+$$;
