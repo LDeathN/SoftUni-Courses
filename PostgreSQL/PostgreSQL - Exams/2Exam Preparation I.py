@@ -113,3 +113,14 @@ WHERE "id" = 2
 RETURNING *;
 
 
+SELECT name, phone_number, address, animal_id, department_id
+FROM volunteers
+ORDER BY name, animal_id, department_id;
+
+
+SELECT a.name, a_t.animal_type, TO_CHAR(a.birthdate, 'DD.MM.YYYY') AS birthdate
+FROM animals a
+JOIN animal_types a_t ON a.animal_type_id = a_t.id
+ORDER BY name;
+
+
