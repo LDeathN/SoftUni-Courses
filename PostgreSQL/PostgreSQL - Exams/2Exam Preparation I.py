@@ -100,4 +100,16 @@ VALUES
 	('Tuatara', '2021-06-30', 2, 4);
 
 
- 
+UPDATE animals
+SET owner_id = 4
+WHERE owner_id IS NULL;
+
+
+DELETE FROM volunteers
+WHERE department_id = 2;
+
+DELETE FROM volunteers_departments
+WHERE "id" = 2
+RETURNING *;
+
+
