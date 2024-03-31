@@ -124,3 +124,32 @@ JOIN animal_types a_t ON a.animal_type_id = a_t.id
 ORDER BY name;
 
 
+SELECT o.name AS owner, COUNT(a.id)
+FROM owners o
+JOIN animals a ON o.id = a.owner_id
+GROUP BY o.name
+ORDER BY COUNT(a.id) DESC, o.name
+LIMIT 5;
+
+
+SELECT CONCAT(o.name, ' - ', a.name) AS "Owners - Animals",
+o.phone_number AS "Phone Number",
+c.id AS "Cage ID"
+FROM owners o
+JOIN animals a ON o.id = a.owner_id
+JOIN animal_types at ON a.animal_type_id = at.id
+JOIN animals_cages AS ac ON ac.animal_id = a.id
+JOIN cages c ON ac.cage_id = c.id
+WHERE at.animal_type = 'Mammals'
+ORDER BY o.name, a.name DESC;
+
+
+SELECT v.name AS volunteers, v.phone_number, 
+SUBSTRING(
+		v.address, POSITION('Sofia' IN v.address) + 7
+	) AS "address"
+FROM volunteers v
+JOIN volunteers_departments vd ON v.department_id = vd.id
+WHERE vd.department_name = 'Education program assistant'
+AND v.address LIKE '%Sofia%'
+ORDER BY v.name;
