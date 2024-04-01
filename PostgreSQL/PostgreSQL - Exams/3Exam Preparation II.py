@@ -96,3 +96,21 @@ AND "year" <= 2010
 AND make NOT LIKE '%Mercedes-Benz%';
 
 
+DELETE FROM clients
+WHERE length(full_name) > 3
+AND id NOT IN (SELECT client_id FROM courses);
+
+
+SELECT make, model, condition
+FROM cars
+ORDER BY id;
+
+
+SELECT d.first_name, d.last_name, c.make, c.model, c.mileage
+FROM drivers d
+JOIN cars_drivers cd ON d.id = cd.driver_id
+JOIN cars c ON c.id = cd.car_id
+WHERE c.mileage IS NOT NULL
+ORDER BY c.mileage DESC, d.first_name;
+
+
