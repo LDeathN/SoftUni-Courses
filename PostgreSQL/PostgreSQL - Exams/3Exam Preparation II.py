@@ -114,3 +114,49 @@ WHERE c.mileage IS NOT NULL
 ORDER BY c.mileage DESC, d.first_name;
 
 
+SELECT c.id AS car_id,
+c.make, 
+c.mileage, 
+COUNT(co.car_id) AS "count_of_courses",
+ROUND(AVG(co.bill), 2) AS average_bill
+FROM cars c
+LEFT JOIN courses co ON co.car_id = c.id
+WHERE c.id NOT IN (
+        SELECT car_id
+        FROM courses
+        GROUP BY car_id
+        HAVING COUNT(id) = 2
+    )
+GROUP BY c.id, c.make, c.model
+ORDER BY COUNT(co.car_id) DESC, c.id;
+
+
+SELECT c.full_name, 
+COUNT(DISTINCT co.car_id) AS count_of_cars,
+SUM(co.bill)
+FROM clients c
+JOIN courses co ON c.id = co.client_id
+WHERE c.full_name LIKE '_a%'
+GROUP BY c.full_name
+HAVING COUNT(DISTINCT car_id) > 1
+ORDER BY c.full_name;
+
+
+SELECT a.name AS address,
+CASE
+WHEN EXTRACT(HOUR FROM co.start) BETWEEN 6 AND 20 THEN 'Day'
+ELSE 'Night'
+END AS day_time,
+co.bill,
+cl.full_name,
+c.make,
+c.model,
+ca.name
+FROM courses co
+JOIN addresses a ON co.from_address_id = a.id
+JOIN clients cl ON co.client_id = cl.id
+JOIN cars c ON co.car_id = c.id
+JOIN categories ca ON c.category_id = ca.id
+ORDER BY co.id;
+
+
