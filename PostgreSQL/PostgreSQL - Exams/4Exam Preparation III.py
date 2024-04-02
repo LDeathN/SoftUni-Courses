@@ -151,3 +151,32 @@ WHERE cbg.creator_id IS NULL
 ORDER BY creator_name;
 
 
+SELECT bg.name, bg.rating, c.name AS category_name
+FROM board_games bg
+JOIN categories c ON c.id = bg.category_id
+JOIN players_ranges pr ON bg.players_range_id = pr.id
+WHERE bg.rating > 7.00 AND bg.name ILIKE '%a%' OR
+bg.rating > 7.50 AND pr.min_players = 2 AND pr.max_players = 5
+ORDER BY bg.name, bg.rating DESC
+LIMIT 5;
+
+
+SELECT CONCAT(c.first_name, ' ', c.last_name) AS full_name, c.email, MAX(bg.rating)
+FROM creators c
+JOIN creators_board_games cbg ON c.id = cbg.creator_id
+JOIN board_games bg ON bg.id = cbg.board_game_id
+WHERE c.email LIKE '%.com'
+GROUP BY c.first_name, c.last_name, c.email
+ORDER BY full_name;
+
+
+SELECT c.last_name, CEIL(AVG(bg.rating)) AS average_rating, p.name AS publisher_name
+FROM creators c
+JOIN creators_board_games cbg ON c.id = cbg.creator_id
+JOIN board_games bg ON bg.id = cbg.board_game_id
+JOIN publishers p ON bg.publisher_id = p.id
+WHERE cbg.creator_id IS NOT NULL AND p.name LIKE '%Stonemaier Games%'
+GROUP BY c.last_name, p.name
+ORDER BY average_rating DESC;
+
+
