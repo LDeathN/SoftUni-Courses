@@ -132,3 +132,22 @@ DELETE FROM addresses
 WHERE town ILIKE 'L%';
 
 
+SELECT name, rating
+FROM board_games
+ORDER BY release_year, name DESC;
+
+
+SELECT bg.id, bg.name, bg.release_year, c.name
+FROM board_games bg
+JOIN categories c ON bg.category_id = c.id
+WHERE c.name LIKE '%Strategy Game%' OR c.name LIKE 'Wargames'
+ORDER BY bg.release_year DESC;
+
+
+SELECT c.id, CONCAT(c.first_name, ' ', c.last_name) AS creator_name, c.email
+FROM creators c
+LEFT JOIN creators_board_games cbg ON c.id = cbg.creator_id
+WHERE cbg.creator_id IS NULL
+ORDER BY creator_name;
+
+
