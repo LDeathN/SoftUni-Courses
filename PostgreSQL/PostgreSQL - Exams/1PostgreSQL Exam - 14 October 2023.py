@@ -120,3 +120,28 @@ DELETE FROM players
 WHERE hire_date < '2013-12-13 07:18:46';
 
 
+SELECT CONCAT(first_name, ' ', last_name) AS full_name,
+age, hire_date
+FROM players p
+WHERE p.first_name LIKE 'M%'
+ORDER BY age DESC, full_name;
+
+
+SELECT p.id, CONCAT(p.first_name, ' ', p.last_name) AS full_name,
+p.age, p.position, p.salary, sd.pace, sd.shooting
+FROM players p
+JOIN skills_data sd ON p.skills_data_id = sd.id
+WHERE p.position LIKE '%A%' AND sd.pace + sd.shooting > 130 AND p.team_id IS NULL;
+
+
+SELECT t.id AS team_id, 
+t.name AS team_name,
+COUNT(p.id) AS player_count,
+t.fan_base
+FROM teams AS t
+LEFT JOIN players AS p ON p.team_id = t.id
+GROUP BY t.id, t.name, t.fan_base
+HAVING t.fan_base > 30000
+ORDER BY player_count DESC, t.fan_base DESC;
+
+
