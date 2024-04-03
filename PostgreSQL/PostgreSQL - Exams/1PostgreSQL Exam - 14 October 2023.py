@@ -145,3 +145,50 @@ HAVING t.fan_base > 30000
 ORDER BY player_count DESC, t.fan_base DESC;
 
 
+SELECT CONCAT(c.first_name, ' ', c.last_name) AS coach_full_name,
+CONCAT(p.first_name, ' ', p.last_name) AS player_full_name,
+t.name AS team_name,
+sd.passing, sd.shooting, sd.speed
+FROM coaches c
+JOIN players_coaches pc ON pc.coach_id = c.id
+JOIN players p ON pc.player_id = p.id
+JOIN teams t ON p.team_id = t.id
+JOIN skills_data sd ON p.skills_data_id = sd.id
+ORDER BY coach_full_name, player_full_name DESC;
+
+
+CREATE OR REPLACE FUNCTION fn_stadium_team_name(
+stadium_name VARCHAR(30)
+)
+RETURNS TABLE(
+	team_name VARCHAR(45)
+)
+AS $$
+BEGIN
+	RETURN QUERY
+	SELECT t.name AS team_name
+	FROM teams AS t
+	JOIN stadiums AS s ON t.stadium_id = s.id
+	WHERE s.name = stadium_name
+	ORDER BY t.name;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE PROCEDURE sp_players_team_name(
+IN player_name VARCHAR(50),
+OUT team_name VARCHAR(45)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+	SELECT COALESCE(t.name, 'The player currently has no team')
+	INTO team_name
+	FROM players p
+	LEFT JOIN teams t ON p.team_id = t.id
+	WHERE CONCAT(p.first_name, ' ', p.last_name) = player_name;
+END;
+$$;
+
+
